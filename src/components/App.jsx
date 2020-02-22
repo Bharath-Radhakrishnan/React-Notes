@@ -5,24 +5,27 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function App() {
-//  const [data,setData]= useState({});
-  // fetch('/get-data')
-  // .then(res=>res.json())
-  // .then(data=>setData(data));
-  const [item, setItem]=useState([]);
-  fetch('/create', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(item),
-})
-.then((response) => response.json())
-.then((data) => {
-  console.log('Success:', data);
-})
+  const [item, setItem]=useState([])
+
+  fetch("/get-data")
+  .then(res=>res.json())
+  .then(data=>setItem(data));
+
+
+
   function added(note){
     setItem((prevNotes)=>[...prevNotes,note]);
+    fetch('/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(note),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('Success:', data);
+  })
   }
   function deleteNote(id){
     console.log(id);
