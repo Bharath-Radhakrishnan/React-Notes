@@ -5,7 +5,22 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function App() {
+//  const [data,setData]= useState({});
+  // fetch('/get-data')
+  // .then(res=>res.json())
+  // .then(data=>setData(data));
   const [item, setItem]=useState([]);
+  fetch('/create', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(item),
+})
+.then((response) => response.json())
+.then((data) => {
+  console.log('Success:', data);
+})
   function added(note){
     setItem((prevNotes)=>[...prevNotes,note]);
   }
@@ -15,7 +30,6 @@ function App() {
       return index !== id;
     }))
   }
-
   return (
     <div>
       <Header />
