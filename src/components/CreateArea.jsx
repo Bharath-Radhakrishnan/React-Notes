@@ -1,5 +1,9 @@
 import React,{useState} from "react";
 import Note from "./Note";
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Zoom from '@material-ui/core/Zoom';
+
 
 function CreateArea(props) {
 
@@ -22,18 +26,18 @@ function CreateArea(props) {
       setItem({title:"",
     content:""})
     }
-    // setContact(prevValue => {
-    //   return {
-    //     ...prevValue,
-    //     [name]: value
-    //   };
-    // });
+    const [clicked,updateClicked]=useState(false);
+    function gen(){
+      updateClicked(!clicked);
+    }
   return (
     <div>
-      <form>
-        <input onChange={handleChange}name="title" placeholder="Title" value={inputItem.title} />
-        <textarea onChange={handleChange} name="content" value={inputItem.content} placeholder="Take a note..." rows="3" />
-        <button onClick={handleClick} >Add</button>
+      <form className="create-note">
+        {clicked&& (<input onChange={handleChange}name="title" placeholder="Title" value={inputItem.title} />)}
+        <textarea onChange={handleChange} onClick={gen} name="content" value={inputItem.content} placeholder="Take a note..." rows={clicked?"3":"1"} />
+        <Zoom in={clicked}>
+        <Fab onClick={handleClick} ><AddIcon /></Fab>
+        </Zoom>
       </form>
     </div>
   );
