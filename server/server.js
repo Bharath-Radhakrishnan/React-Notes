@@ -32,4 +32,13 @@ app.post("/create",(req,res)=>{
   note.save();
 res.json({succes:'true'})
 });
+app.post("/delete",(req,res)=>{
+  console.log("request got "+req.body.id)
+  Note.deleteOne({_id:req.body.id},function(err){
+    if(!err){
+      console.log("succesfully deleted");
+    }
+  })
+  res.json({succes:'true'});
+})
 app.listen(5000,()=>console.log("listening"));
